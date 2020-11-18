@@ -75,12 +75,19 @@ class App extends React.Component {
     return (
         <div id="cluster">
             {this.renderbclasses()}
+            {this.renderaddarea()}
         </div>
     )
   }
 
   renderbclasses() {
     const { bclasses } = this.state
+    return bclasses.map(
+      bclass => (<Table key={bclass.id} tableName={bclass.name} tableData={bclass.data} />)
+    )
+  }
+
+  renderaddarea() {
     return bclasses.map(
       bclass => (<Table key={bclass.id} tableName={bclass.name} tableData={bclass.data} />)
     )
