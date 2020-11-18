@@ -1,6 +1,9 @@
 import './App.css';
+
 import Table from './Table'
 import React from 'react';
+import AutocompleteField from "./AutocompleteField"
+
 
 class App extends React.Component {
 
@@ -74,6 +77,7 @@ class App extends React.Component {
   render() {
     return (
         <div id="cluster">
+            {this.renderpickers()}
             {this.renderbclasses()}
             {this.renderaddarea()}
         </div>
@@ -88,8 +92,21 @@ class App extends React.Component {
   }
 
   renderaddarea() {
-    return bclasses.map(
-      bclass => (<Table key={bclass.id} tableName={bclass.name} tableData={bclass.data} />)
+    return (
+        <button className="button4">+ Add List</button>
+    )
+  }
+
+  renderpickers() {
+    return (
+      <div className="pickerdiv">
+        <AutocompleteField label="Select a list"></AutocompleteField>
+        <AutocompleteField label="Select a course"></AutocompleteField>
+        <button style={{
+          display: "inline-block",
+          fontSize: "larger"
+          }}>+</button>
+      </div>
     )
   }
 }
