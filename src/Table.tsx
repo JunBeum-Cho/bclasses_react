@@ -11,7 +11,7 @@ export interface TableProps {
 class Table extends React.Component<TableProps> {
 	render() {
         return (
-            <div>
+            <div className="tablearea">
                 <h2 className="title">{this.props.tableName}</h2>
                 <table className="content-table">
                     <TableHeader/>
