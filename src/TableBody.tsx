@@ -1,30 +1,58 @@
 import React from "react"
 import './Table.css';
 
+export interface TableBodyProps {
+    data: any
+}
 
-
-export default class TableBody extends React.Component {
+export default class TableBody extends React.Component<TableBodyProps> {
     
     render() {
-        const { data } = this.props
-        return(
-            <tr>
-                <td>{this.changeToSign(data.availabiliy)}</td>
-                <td>{data.course_title}</td>
-                <td>{data.course_subtitle}</td>
-                <td>{data.currently_enrolled} / {data.max_enrolled}</td>      
-                <td>{data.currently_waitlisted} / {data.max_waitlisted}</td>      
-                <td>{data.total_class_grade}</td>
-                <td>{data.recent_section_grade} ({data.recent_section_period})</td>
-            </tr>
+        return (
+            this.renderRow()
         )
     }
 
-    changeToSign(availabiliy: string) {
-        const greenlight = "&#128994;"
-        const yellowlight = "&#128993;"
-        const redlight = "&#128308;"
-        const whitelight = "&#9898;"
-        return "x"
+    renderRow() {
+        const greenlight = "🟢" // &#128994;
+        const yellowlight = "🟡" // &#128993;
+        const redlight = "🔴" // &#128308;
+        const whitelight = "⚪" // &#9898;
+        const { data } = this.props;
+
+        if (!data.course_validation) {
+            return (
+                <tr>
+                    <td>{whitelight}</td>
+                    <td className="italic" colSpan={6}> * {data.course_title} is not a valid course number</td>
+                </tr>
+            )
+        } else if (!data.is_offered) {
+            return (
+                <tr>
+                    <td>{whitelight}</td>
+                    <td className="italic" colSpan={6}> * {data.course_title} is not offered in {data.semester} {data.year}</td>
+                </tr>
+            )
+        } else {
+            let availability_sign = redlight
+            if (Number(data.currently_waitlisted) === 0) {
+                availability_sign = greenlight
+            } else if (Number(data.currently_waitlisted) < Number(data.max_waitlisted)) {
+                availability_sign = yellowlight
+            }
+
+            return(
+                <tr>
+                    <td>{availability_sign}</td>
+                    <td>{data.course_title}</td>
+                    <td>{data.course_subtitle}</td>
+                    <td>{data.currently_enrolled} / {data.max_enrolled}</td>      
+                    <td>{data.currently_waitlisted} / {data.max_waitlisted}</td>      
+                    <td>{data.total_class_grade}</td>
+                    <td>{data.recent_section_grade} ({data.recent_section_period})</td>
+                </tr>
+            )
+        }
     }
 }

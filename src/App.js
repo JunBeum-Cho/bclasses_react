@@ -9,8 +9,9 @@ class App extends React.Component {
       { id: 0,
         name: "Breadth Requirement - (should pick one)", 
         data: [{
-            availabiliy: "Nope",
-            course_title:"ESPM 60AC",
+            course_validation: true,
+            is_offered: true,
+            course_title: "ESPM 60AC",
             course_subtitle: "Introduction to Culture and Natural Resource Management",
             currently_enrolled: "576",
             max_enrolled: "580",
@@ -21,7 +22,9 @@ class App extends React.Component {
             recent_section_period: "spring 2020"
           },
           {
-            availabiliy: "Nope",
+            course_validation: true,
+            is_offered: true,
+            availability: "Nope",
             course_title: "HISTORY 182A",
             course_subtitle: "Science, Technology, and Society",
             currently_enrolled: "47",
