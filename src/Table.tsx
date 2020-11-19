@@ -17,6 +17,7 @@ class Table extends React.Component<TableProps> {
                     <TableHeader/>
                     <tbody>
                         {this.renderbody()}
+                        {this.renderaddbody()}
                     </tbody>
                 </table>
             </div>
@@ -29,6 +30,16 @@ class Table extends React.Component<TableProps> {
             return <TableBody key={index} data={data} />
         })
     }
+
+    renderaddbody() {
+        return (
+            <tr>
+                <td colSpan={7}><div className="additem_btn">+</div></td>
+            </tr>
+        )
+    }
+
+
 }
 
 export default Table

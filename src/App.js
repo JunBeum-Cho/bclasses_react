@@ -2,15 +2,26 @@ import './App.css';
 
 import Table from './Table'
 import React from 'react';
-import AutocompleteField from "./AutocompleteField"
+import {AutocompleteCoursesField, AutocompleteListField} from "./AutocompleteField"
 
+const courses = [
+  { id: 1, abbreviation: "A,RESEC", course_number: "201" },
+  { id: 2, abbreviation: "A,RESEC", course_number: "202" },
+  { id: 3, abbreviation: "A,RESEC", course_number: "210" },
+  { id: 4, abbreviation: "A,RESEC", course_number: "211" },
+  { id: 5, abbreviation: "A,RESEC", course_number: "212" },
+  { id: 6, abbreviation: "A,RESEC", course_number: "213" },
+  { id: 7, abbreviation: "A,RESEC", course_number: "214" },
+  { id: 8, abbreviation: "A,RESEC", course_number: "219A" },
+  { id: 9, abbreviation: "A,RESEC", course_number: "219B" }
+]
 
 class App extends React.Component {
 
   state = {
+    number: 0,
     bclasses: [
-      { id: 0,
-        name: "Breadth Requirement - (should pick one)", 
+      { name: "Breadth Requirement - (should pick one)", 
         data: [{
             course_validation: true,
             is_offered: true,
@@ -40,8 +51,7 @@ class App extends React.Component {
           },
         ]
       },
-      { id: 1,
-        name: "Major Classes", 
+      { name: "Major Classes", 
         data: [{
             course_validation: true,
             is_offered: true,
@@ -79,7 +89,7 @@ class App extends React.Component {
         <div id="cluster">
             {this.renderpickers()}
             {this.renderbclasses()}
-            {this.renderaddarea()}
+            {this.renderaddlist()}
         </div>
     )
   }
@@ -87,33 +97,35 @@ class App extends React.Component {
   renderbclasses() {
     const { bclasses } = this.state
     return bclasses.map(
-      bclass => (<Table key={bclass.id} tableName={bclass.name} tableData={bclass.data} />)
+      (bclass, index) => (<Table key={index} tableName={bclass.name} tableData={bclass.data} />)
     )
   }
 
-  renderaddarea() {
+  renderaddlist() {
     return (
-        <button className="button4">+ Add List</button>
+        <button className="addlist_btn" onClick={this.addlist_onClick} >+ Add List</button>
     )
+  }
+
+  addlist_onClick = () => {
+    const { number, bclasses } = this.state
+    this.setState({number: number+1, bclasses: [...bclasses.concat({name: `New list_${number}`, data: []})]})
   }
 
   renderpickers() {
+    const { number, bclasses } = this.state
+    console.log(bclasses.map((bclass) => bclass.name))
+
     return (
       <div className="pickerdiv">
-        <AutocompleteField label="Select a list"></AutocompleteField>
-        <AutocompleteField label="Select a course"></AutocompleteField>
-        <button style={{
-          display: "inline-block",
-          fontSize: "larger"
-          }}>+</button>
+        <AutocompleteListField label="Select a list" list={bclasses.map(bclass => ({name: bclass.name}))}></AutocompleteListField>
+        <AutocompleteCoursesField label="Select a course" list={courses}></AutocompleteCoursesField>
       </div>
     )
   }
 }
 
 export default App
-
-
 
 
 
