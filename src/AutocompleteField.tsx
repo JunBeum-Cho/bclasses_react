@@ -45,29 +45,40 @@ export function AutocompleteCoursesField(props: {label: string, list: CourseFiel
 export function AutocompleteListField(props: {label: string, list: ListField[]}) {
   const { label, list } = props
   return (
+    // <Autocomplete
+    //   style={{ width: 350, display: "inline-block"}}
+    //   options={list}
+    //   autoHighlight
+    //   getOptionLabel={(option) => `${option.name}`}
+    //   renderOption={(option) => (
+    //     <React.Fragment>
+    //       {option.name}
+    //     </React.Fragment>
+    //   )}
+    //   renderInput={(params) => (
+    //     <TextField
+    //       {...params}
+    //       label={label}
+    //       variant="outlined"
+    //       inputProps={{
+    //         ...params.inputProps,
+    //         autoComplete: "new-password" // disable autocomplete and autofill
+    //       }}
+    //     />
+    //   )}
+    // />
+
     <Autocomplete
-      style={{ width: 350, display: "inline-block"}}
       options={list}
-      autoHighlight
       getOptionLabel={(option) => `${option.name}`}
-      renderOption={(option) => (
-        <React.Fragment>
-          {option.name}
-        </React.Fragment>
-      )}
-      renderInput={(params) => (
-        <TextField
-          {...params}
-          label={label}
-          variant="outlined"
-          inputProps={{
-            ...params.inputProps,
-            autoComplete: "new-password" // disable autocomplete and autofill
-          }}
-        />
-      )}
+      id="select-on-focus"
+      selectOnFocus
+      renderInput={(params) => <TextField {...params} label="selectOnFocus" margin="normal" />}
     />
   );
 }
 
 // From https://bitbucket.org/atlassian/atlaskit-mk-2/raw/4ad0e56649c3e6c973e226b7efaeb28cb240ccb0/packages/core/select/src/data/countries.js
+
+
+      
