@@ -1,7 +1,7 @@
 import './App.css';
 
 import Table from './Table'
-import React from 'react';
+import React, { useState } from 'react';
 import {AutocompleteCoursesField, AutocompleteListField} from "./AutocompleteField"
 
 const courses = [
@@ -17,7 +17,6 @@ const courses = [
 ]
 
 class App extends React.Component {
-
   state = {
     number: 0,
     bclasses: [
@@ -97,8 +96,13 @@ class App extends React.Component {
   renderbclasses() {
     const { bclasses } = this.state
     return bclasses.map(
-      (bclass, index) => (<Table key={index} tableName={bclass.name} tableData={bclass.data} />)
+      (bclass, index) => (<Table onCreate={this.bclass_modify} key={index} tableName={bclass.name} tableData={bclass.data}/>)
     )
+  }
+
+  bclass_modify = course => {
+    const {bclasses} = this.state
+    console.log(course)
   }
 
   renderaddlist() {
@@ -113,7 +117,7 @@ class App extends React.Component {
   }
 
   renderpickers() {
-    const { number, bclasses } = this.state
+    const { bclasses } = this.state
     console.log(bclasses.map((bclass) => bclass.name))
 
     return (

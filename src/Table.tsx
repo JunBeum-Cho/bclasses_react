@@ -6,6 +6,7 @@ import TableBody from "./TableBody"
 export interface TableProps {
     tableName: string
     tableData: any
+    onCreate: (course: any) => {}
 }
 
 class Table extends React.Component<TableProps> {
@@ -17,7 +18,7 @@ class Table extends React.Component<TableProps> {
                     <TableHeader/>
                     <tbody>
                         {this.renderbody()}
-                        {this.renderaddbody()}
+                        {this.renderadditem()}
                     </tbody>
                 </table>
             </div>
@@ -31,14 +32,19 @@ class Table extends React.Component<TableProps> {
         })
     }
 
-    renderaddbody() {
+    renderadditem() {
         return (
             <tr>
-                <td colSpan={7}><div className="additem_btn">+</div></td>
+                <td colSpan={7}><div className="additem_btn" onClick={this.additem_onClick}>+</div></td>
             </tr>
         )
     }
 
+    additem_onClick = () => {
+        // autotextfield가 나오도록 함
+        // 거기에서 무언가를 클릭하면
+        this.props.onCreate("asd")
+    }
 
 }
 
