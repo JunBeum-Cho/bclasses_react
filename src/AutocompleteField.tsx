@@ -16,43 +16,14 @@ interface ListField {
 export function AutocompleteCoursesField(props: {label: string, list: CourseField[]}) {
   const { label, list } = props
   return (
-    <Autocomplete
-      style={{ width: 300, display: "inline-block"}}
-      options={list}
-      autoHighlight
-      getOptionLabel={(option) => `${option.abbreviation} ${option.course_number}`}
-      renderOption={(option) => (
-        <React.Fragment>
-          {option.abbreviation} {option.course_number}
-        </React.Fragment>
-      )}
-      renderInput={(params) => (
-        <TextField
-          {...params}
-          label={label}
-          variant="outlined"
-          inputProps={{
-            ...params.inputProps,
-            autoComplete: "new-password" // disable autocomplete and autofill
-          }}
-        />
-      )}
-    />
-  );
-}
-
-
-export function AutocompleteListField(props: {label: string, list: ListField[]}) {
-  const { label, list } = props
-  return (
     // <Autocomplete
-    //   style={{ width: 350, display: "inline-block"}}
+    //   style={{ width: 300, display: "inline-block"}}
     //   options={list}
     //   autoHighlight
-    //   getOptionLabel={(option) => `${option.name}`}
+    //   getOptionLabel={(option) => `${option.abbreviation} ${option.course_number}`}
     //   renderOption={(option) => (
     //     <React.Fragment>
-    //       {option.name}
+    //       {option.abbreviation} {option.course_number}
     //     </React.Fragment>
     //   )}
     //   renderInput={(params) => (
@@ -70,10 +41,39 @@ export function AutocompleteListField(props: {label: string, list: ListField[]})
 
     <Autocomplete
       options={list}
-      getOptionLabel={(option) => `${option.name}`}
+      getOptionLabel={(option) => `${option.abbreviation} ${option.course_number}`}
       id="select-on-focus"
       selectOnFocus
-      renderInput={(params) => <TextField {...params} label="selectOnFocus" margin="normal" />}
+      renderInput={(params) => <TextField {...params} label="Select a course" margin="normal" />}
+    />
+  );
+}
+
+
+export function AutocompleteListField(props: {label: string, list: ListField[]}) {
+  const { label, list } = props
+  return (
+    <Autocomplete
+      style={{ width: 350, display: "inline-block"}}
+      options={list}
+      autoHighlight
+      getOptionLabel={(option) => `${option.name}`}
+      renderOption={(option) => (
+        <React.Fragment>
+          {option.name}
+        </React.Fragment>
+      )}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          label={label}
+          variant="outlined"
+          inputProps={{
+            ...params.inputProps,
+            autoComplete: "new-password" // disable autocomplete and autofill
+          }}
+        />
+      )}
     />
   );
 }
