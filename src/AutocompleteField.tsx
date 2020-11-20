@@ -19,7 +19,7 @@ interface ListTextBox {
 interface CourseTextField {
   label: string, 
   list: CourseTextBox[],
-  handleCreate: (courseid: any) => {},
+  handleCreate: (courseid: any) => void,
   handleCancel: () => void
 }
 
@@ -51,8 +51,10 @@ export class AutocompleteCoursesTextField extends React.Component<CourseTextFiel
   handleText = (event: any, newValue: CourseTextBox | null) => {
     this.setState({...this.state, id:newValue?.id})
   }
+
   handleCreate = () => {
     this.props.handleCreate(this.state.id)
+    // value 를 null 변환해야함
   }
 }
 

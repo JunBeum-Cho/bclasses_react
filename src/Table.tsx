@@ -54,7 +54,7 @@ class Table extends React.Component<TableProps> {
         if (this.state.editing === true) {
             return (
                 <tr>
-                    <td colSpan={7}><AutocompleteCoursesTextField label="Add Course" list={courses} handleCreate={this.props.handleAddData} handleCancel={this.handleCancel}></AutocompleteCoursesTextField></td>
+                    <td colSpan={7}><AutocompleteCoursesTextField label="Add Course" list={courses} handleCancel={this.handleCancel} handleCreate={this.props.handleAddData} ></AutocompleteCoursesTextField></td>
                 </tr>
             )
         } else {

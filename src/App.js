@@ -100,9 +100,9 @@ class App extends React.Component {
     )
   }
 
-  handleAddData = course => {
+  handleAddData = courseid => {
     const {bclasses} = this.state
-    console.log(course)
+    console.log(courseid)
   }
 
   renderaddlist() {
