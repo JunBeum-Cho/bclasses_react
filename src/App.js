@@ -2,7 +2,7 @@ import './App.css';
 
 import Table from './Table'
 import React, { useState } from 'react';
-import {AutocompleteCoursesField, AutocompleteListField} from "./AutocompleteField"
+import {AutocompleteCoursesTextBox, AutocompleteListTextBox} from "./AutocompleteField"
 
 const courses = [
   { id: 1, abbreviation: "A,RESEC", course_number: "201" },
@@ -96,11 +96,11 @@ class App extends React.Component {
   renderbclasses() {
     const { bclasses } = this.state
     return bclasses.map(
-      (bclass, index) => (<Table onCreate={this.bclass_modify} key={index} tableName={bclass.name} tableData={bclass.data}/>)
+      (bclass, index) => (<Table handleAddData={this.handleAddData} key={index} tableName={bclass.name} tableData={bclass.data}/>)
     )
   }
 
-  bclass_modify = course => {
+  handleAddData = course => {
     const {bclasses} = this.state
     console.log(course)
   }
@@ -118,12 +118,11 @@ class App extends React.Component {
 
   renderpickers() {
     const { bclasses } = this.state
-    console.log(bclasses.map((bclass) => bclass.name))
 
     return (
       <div className="pickerdiv">
-        <AutocompleteListField label="Select a list" list={bclasses.map(bclass => ({name: bclass.name}))}></AutocompleteListField>
-        <AutocompleteCoursesField label="Select a course" list={courses}></AutocompleteCoursesField>
+        <AutocompleteListTextBox label="Select a list" list={bclasses.map(bclass => ({name: bclass.name}))}></AutocompleteListTextBox>
+        <AutocompleteCoursesTextBox label="Select a course" list={courses}></AutocompleteCoursesTextBox>
       </div>
     )
   }

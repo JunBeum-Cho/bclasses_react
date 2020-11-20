@@ -56,3 +56,11 @@ export default class TableBody extends React.Component<TableBodyProps> {
         }
     }
 }
+
+
+
+// import IconButton from '@material-ui/core/IconButton';
+// import DeleteIcon from '@material-ui/icons/Delete';
+// <IconButton aria-label="delete" className={classes.margin}>
+// <DeleteIcon />
+// </IconButton>

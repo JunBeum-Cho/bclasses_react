@@ -1,16 +1,20 @@
 import './Table.css';
-import React from 'react'
+import React, { useState } from 'react'
 import TableHeader from "./TableHeader"
 import TableBody from "./TableBody"
-import { AutocompleteCoursesField } from './AutocompleteField';
+import { AutocompleteCoursesTextField } from './AutocompleteField';
 
 export interface TableProps {
     tableName: string
     tableData: any
-    onCreate: (course: any) => {}
+    handleAddData: (courseid: any) => {}
+    // onUpdate: (courseid: any) => {}
+    // onRemove: (courseid: any) => {}
 }
 
 class Table extends React.Component<TableProps> {
+    state = { editing: false }
+
 	render() {
         return (
             <div className="tablearea">
@@ -34,11 +38,6 @@ class Table extends React.Component<TableProps> {
     }
 
     renderadditem() {
-        // return (
-        //     <tr>
-        //         <td colSpan={7}><div className="additem_btn" onClick={this.additem_onClick}>+</div></td>
-        //     </tr>
-        // )
         const courses = [
             { id: "1", abbreviation: "A,RESEC", course_number: "201" },
             { id: "2", abbreviation: "A,RESEC", course_number: "202" },
@@ -51,17 +50,28 @@ class Table extends React.Component<TableProps> {
             { id: "9", abbreviation: "A,RESEC", course_number: "219B" }
           ]
 
-        return (
-            <tr>
-                <td colSpan={7}><AutocompleteCoursesField label="select a course" list={courses}></AutocompleteCoursesField></td>
-            </tr>
-        )
+
+        if (this.state.editing === true) {
+            return (
+                <tr>
+                    <td colSpan={7}><AutocompleteCoursesTextField label="Add Course" list={courses} handleCreate={this.props.handleAddData} handleCancel={this.handleCancel}></AutocompleteCoursesTextField></td>
+                </tr>
+            )
+        } else {
+            return (
+                <tr>
+                    <td colSpan={7}><div className="additem_btn" onClick={this.additem_onClick}>+</div></td>
+                </tr>
+            )
+        }
     }
 
     additem_onClick = () => {
-        // autotextfield가 나오도록 함
-        // 거기에서 무언가를 클릭하면
-        this.props.onCreate("asd")
+        this.setState({editing: !this.state.editing})
+    }
+
+    handleCancel = () => {
+        this.setState({editing: false})
     }
 
 }
