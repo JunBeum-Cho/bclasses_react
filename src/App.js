@@ -1,20 +1,6 @@
 import './App.css';
-
 import Table from './Table'
-import React, { useState } from 'react';
-import {AutocompleteCoursesTextBox, AutocompleteListTextBox} from "./AutocompleteField"
-
-const courses = [
-  { id: 1, abbreviation: "A,RESEC", course_number: "201" },
-  { id: 2, abbreviation: "A,RESEC", course_number: "202" },
-  { id: 3, abbreviation: "A,RESEC", course_number: "210" },
-  { id: 4, abbreviation: "A,RESEC", course_number: "211" },
-  { id: 5, abbreviation: "A,RESEC", course_number: "212" },
-  { id: 6, abbreviation: "A,RESEC", course_number: "213" },
-  { id: 7, abbreviation: "A,RESEC", course_number: "214" },
-  { id: 8, abbreviation: "A,RESEC", course_number: "219A" },
-  { id: 9, abbreviation: "A,RESEC", course_number: "219B" }
-]
+import React from 'react';
 
 class App extends React.Component {
   state = {
@@ -24,6 +10,7 @@ class App extends React.Component {
         data: [{
             course_validation: true,
             is_offered: true,
+            courseid: 1,
             course_title: "ESPM 60AC",
             course_subtitle: "Introduction to Culture and Natural Resource Management",
             currently_enrolled: "576",
@@ -37,6 +24,7 @@ class App extends React.Component {
           {
             course_validation: true,
             is_offered: true,
+            courseid: 2,
             availability: "Nope",
             course_title: "HISTORY 182A",
             course_subtitle: "Science, Technology, and Society",
@@ -54,6 +42,7 @@ class App extends React.Component {
         data: [{
             course_validation: true,
             is_offered: true,
+            courseid: 1,
             course_title: "ESPM 60AC",
             course_subtitle: "Introduction to Culture and Natural Resource Management",
             currently_enrolled: "576",
@@ -67,6 +56,7 @@ class App extends React.Component {
           {
             course_validation: true,
             is_offered: true,
+            courseid: 2,
             availability: "Nope",
             course_title: "HISTORY 182A",
             course_subtitle: "Science, Technology, and Society",
@@ -86,7 +76,6 @@ class App extends React.Component {
   render() {
     return (
         <div id="cluster">
-            {this.renderpickers()}
             {this.renderbclasses()}
             {this.renderaddlist()}
         </div>
@@ -96,14 +85,60 @@ class App extends React.Component {
   renderbclasses() {
     const { bclasses } = this.state
     return bclasses.map(
-      (bclass, index) => (<Table handleAddData={this.handleAddData} key={index} tableName={bclass.name} tableData={bclass.data}/>)
+      (bclass, index) => (
+      <Table 
+        key={index}
+        tableName={bclass.name} 
+        tableData={bclass.data}
+        handleAddData={this.handleAddData} 
+        handleRemoveData={this.handleRemoveData}/>)
     )
   }
 
-  handleAddData = courseid => {
+  handleAddData = (tableName, courseid) => {
     const {bclasses} = this.state
-    console.log(courseid)
+
+    const example = {
+      course_validation: true,
+      is_offered: true,
+      courseid: 3,
+      availability: "Nope",
+      course_title: "Example 100",
+      course_subtitle: "Example Class",
+      currently_enrolled: `${courseid}`,
+      max_enrolled: `${courseid}`,
+      currently_waitlisted: `${courseid}`,
+      max_waitlisted: `${courseid}`,
+      total_class_grade: `${courseid}`,
+      recent_section_grade: `${courseid}`,
+      recent_section_period: "spring 2020"
+    }
+
+    const updated_bclasses = bclasses.map((bclass) => {
+      if(bclass.name === tableName){
+        return {name: bclass.name, data: [...bclass.data].concat(example)}
+      } else{
+        return bclass
+      }
+    })
+    this.setState({...this.state, bclasses: updated_bclasses})
   }
+
+  handleRemoveData = (tableName, courseid) => {
+    const {bclasses} = this.state
+
+    const updated_bclasses = bclasses.map((bclass) => {
+      if(bclass.name === tableName){
+        return {name: bclass.name, data: [...bclass.data].filter( course => 
+          course.courseid !== courseid
+        )}
+      } else{
+        return bclass
+      }
+    })
+    this.setState({...this.state, bclasses: updated_bclasses})
+  }
+
 
   renderaddlist() {
     return (
@@ -114,17 +149,6 @@ class App extends React.Component {
   addlist_onClick = () => {
     const { number, bclasses } = this.state
     this.setState({number: number+1, bclasses: [...bclasses.concat({name: `New list_${number}`, data: []})]})
-  }
-
-  renderpickers() {
-    const { bclasses } = this.state
-
-    return (
-      <div className="pickerdiv">
-        <AutocompleteListTextBox label="Select a list" list={bclasses.map(bclass => ({name: bclass.name}))}></AutocompleteListTextBox>
-        <AutocompleteCoursesTextBox label="Select a course" list={courses}></AutocompleteCoursesTextBox>
-      </div>
-    )
   }
 }
 

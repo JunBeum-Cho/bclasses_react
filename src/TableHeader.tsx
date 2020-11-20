@@ -12,6 +12,7 @@ export default function TableHeader() {
                 <th>Waitlisted</th>
                 <th>Accumulated class avg grade</th>
                 <th>Most recent section avg grade</th>
+                <th></th>
             </tr>
         </thead>
     )

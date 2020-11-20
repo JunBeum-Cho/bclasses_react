@@ -1,7 +1,11 @@
 import React from "react"
 import './Table.css';
+import CloseIcon from '@material-ui/icons/Close';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 
 export interface TableBodyProps {
+    handleRemove: (courseid: number) => void,
     data: any
 }
 
@@ -25,6 +29,7 @@ export default class TableBody extends React.Component<TableBodyProps> {
                 <tr>
                     <td>{whitelight}</td>
                     <td className="italic" colSpan={6}> * {data.course_title} is not a valid course number</td>
+                    <td>dasd</td>
                 </tr>
             )
         } else if (!data.is_offered) {
@@ -32,6 +37,7 @@ export default class TableBody extends React.Component<TableBodyProps> {
                 <tr>
                     <td>{whitelight}</td>
                     <td className="italic" colSpan={6}> * {data.course_title} is not offered in {data.semester} {data.year}</td>
+                    <td>dasd</td>
                 </tr>
             )
         } else {
@@ -51,11 +57,25 @@ export default class TableBody extends React.Component<TableBodyProps> {
                     <td>{data.currently_waitlisted} / {data.max_waitlisted}</td>      
                     <td>{data.total_class_grade}</td>
                     <td>{data.recent_section_grade} ({data.recent_section_period})</td>
+                    <td>
+                    <IconButton 
+                        style={{width: "30px", height: "30px"}}
+                        onClick={this.handleRemove}>
+                        <CloseIcon fontSize="small"/>
+                    </IconButton>
+                    </td>
                 </tr>
             )
         }
     }
+
+    handleRemove = () => {
+        this.props.handleRemove(this.props.data.courseid)
+    }
 }
+
+
+
 
 
 

@@ -5,9 +5,8 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
-
 interface CourseTextBox {
-  id: string, 
+  id: number, 
   abbreviation: string, 
   course_number: string
 }
@@ -40,8 +39,16 @@ export class AutocompleteCoursesTextField extends React.Component<CourseTextFiel
           onChange = {this.handleText}
           renderInput={(params) => <TextField {...params} label={this.props.label} margin="normal" />}
         />
-        <Button style={{marginLeft: "30px", verticalAlign: "bottom", marginBottom: "15px"}} variant="contained" size="large" color="primary" onClick={this.handleCreate} >Add</Button>
-        <IconButton style={{marginLeft: "10px", verticalAlign: "bottom", marginBottom: "10px"}} aria-label="delete" onClick={this.props.handleCancel}>
+        <Button 
+          style={{marginLeft: "30px", verticalAlign: "bottom", marginBottom: "15px"}} 
+          variant="contained" 
+          size="large" 
+          color="primary" 
+          onClick={this.handleCreate}>Add</Button>
+        <IconButton 
+          style={{marginLeft: "10px", verticalAlign: "bottom", marginBottom: "10px"}} 
+          aria-label="delete" 
+          onClick={this.props.handleCancel}>
           <DeleteIcon />
         </IconButton>
       </div>
@@ -54,7 +61,6 @@ export class AutocompleteCoursesTextField extends React.Component<CourseTextFiel
 
   handleCreate = () => {
     this.props.handleCreate(this.state.id)
-    // value 를 null 변환해야함
   }
 }
 

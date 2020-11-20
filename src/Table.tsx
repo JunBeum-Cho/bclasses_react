@@ -1,20 +1,19 @@
 import './Table.css';
-import React, { useState } from 'react'
+import React from 'react'
 import TableHeader from "./TableHeader"
 import TableBody from "./TableBody"
-import { AutocompleteCoursesTextField } from './AutocompleteField';
+import { AutocompleteCoursesTextField } from './AutocompleteField'
+import allCourseList_json from "./all_courses.json"
 
 export interface TableProps {
     tableName: string
     tableData: any
-    handleAddData: (courseid: any) => {}
-    // onUpdate: (courseid: any) => {}
-    // onRemove: (courseid: any) => {}
+    handleAddData: (tableName: string, courseid: any) => {}
+    handleRemoveData: (tableName: string, courseid: any) => void
 }
 
 class Table extends React.Component<TableProps> {
     state = { editing: false }
-
 	render() {
         return (
             <div className="tablearea">
@@ -33,28 +32,23 @@ class Table extends React.Component<TableProps> {
     renderbody() {
         const { tableData } = this.props
         return tableData.map((data: any, index: number) => {
-            return <TableBody key={index} data={data} />
+            return <TableBody handleRemove={this.handleRemove} key={index} data={data} />
         })
     }
 
     renderadditem() {
-        const courses = [
-            { id: "1", abbreviation: "A,RESEC", course_number: "201" },
-            { id: "2", abbreviation: "A,RESEC", course_number: "202" },
-            { id: "3", abbreviation: "A,RESEC", course_number: "210" },
-            { id: "4", abbreviation: "A,RESEC", course_number: "211" },
-            { id: "5", abbreviation: "A,RESEC", course_number: "212" },
-            { id: "6", abbreviation: "A,RESEC", course_number: "213" },
-            { id: "7", abbreviation: "A,RESEC", course_number: "214" },
-            { id: "8", abbreviation: "A,RESEC", course_number: "219A" },
-            { id: "9", abbreviation: "A,RESEC", course_number: "219B" }
-          ]
-
-
+        const allCourseList = allCourseList_json.courses
+        console.log(allCourseList)
         if (this.state.editing === true) {
             return (
                 <tr>
-                    <td colSpan={7}><AutocompleteCoursesTextField label="Add Course" list={courses} handleCancel={this.handleCancel} handleCreate={this.props.handleAddData} ></AutocompleteCoursesTextField></td>
+                    <td colSpan={7}>
+                        <AutocompleteCoursesTextField 
+                            label="Add Course"
+                            list={allCourseList} 
+                            handleCancel={this.handleCancel} 
+                            handleCreate={this.handleCreate}>
+                        </AutocompleteCoursesTextField></td>
                 </tr>
             )
         } else {
@@ -72,6 +66,15 @@ class Table extends React.Component<TableProps> {
 
     handleCancel = () => {
         this.setState({editing: false})
+    }
+
+    handleCreate = (courseid: number) => {
+        this.props.handleAddData(this.props.tableName, courseid)
+        this.setState({editing: false})
+    }
+
+    handleRemove = (courseid: number) => {
+        this.props.handleRemoveData(this.props.tableName, courseid)
     }
 
 }
