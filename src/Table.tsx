@@ -38,13 +38,11 @@ class Table extends React.Component<TableProps> {
 
     renderadditem() {
         const allCourseList = allCourseList_json.courses
-        console.log(allCourseList)
         if (this.state.editing === true) {
             return (
                 <tr>
                     <td colSpan={7}>
-                        <AutocompleteCoursesTextField 
-                            label="Add Course"
+                        <AutocompleteCoursesTextField
                             list={allCourseList} 
                             handleCancel={this.handleCancel} 
                             handleCreate={this.handleCreate}>

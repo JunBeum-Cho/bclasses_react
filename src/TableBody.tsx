@@ -1,7 +1,6 @@
 import React from "react"
 import './Table.css';
 import CloseIcon from '@material-ui/icons/Close';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 
 export interface TableBodyProps {
