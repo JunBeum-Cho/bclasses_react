@@ -97,7 +97,6 @@ class App extends React.Component {
 
   handleAddData = (tableName, courseid) => {
     const {bclasses} = this.state
-
     const example = {
       course_validation: true,
       is_offered: true,

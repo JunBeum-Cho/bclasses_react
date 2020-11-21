@@ -10,8 +10,8 @@ export default function TableHeader() {
                 <th>Course title</th>
                 <th>Enrolled</th>
                 <th>Waitlisted</th>
-                <th>Accumulated class avg grade</th>
-                <th>Most recent section avg grade</th>
+                <th>Accumulated class avg</th>
+                <th>Most recent section avg</th>
                 <th></th>
             </tr>
         </thead>
