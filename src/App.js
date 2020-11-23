@@ -1,6 +1,7 @@
 import './App.css';
 import Table from './Table'
 import React from 'react';
+import bclasses from './bclasses';
 
 class App extends React.Component {
   state = {
@@ -91,7 +92,8 @@ class App extends React.Component {
         tableName={bclass.name} 
         tableData={bclass.data}
         handleAddData={this.handleAddData} 
-        handleRemoveData={this.handleRemoveData}/>)
+        handleRemoveData={this.handleRemoveData}
+        handleTableName={this.handleTableName}/>)
     )
   }
 
@@ -123,6 +125,12 @@ class App extends React.Component {
     this.setState({...this.state, bclasses: updated_bclasses})
   }
 
+  renderaddlist() {
+    return (
+        <button className="addlist_btn" onClick={this.addlist_onClick} >+ Add List</button>
+    )
+  }
+
   handleRemoveData = (tableName, courseid) => {
     const {bclasses} = this.state
 
@@ -138,16 +146,21 @@ class App extends React.Component {
     this.setState({...this.state, bclasses: updated_bclasses})
   }
 
-
-  renderaddlist() {
-    return (
-        <button className="addlist_btn" onClick={this.addlist_onClick} >+ Add List</button>
-    )
-  }
-
   addlist_onClick = () => {
     const { number, bclasses } = this.state
     this.setState({number: number+1, bclasses: [...bclasses.concat({name: `New list_${number}`, data: []})]})
+  }
+
+  handleTableName = (tableName, newtableName) => {
+    const newbclasses = this.state.bclasses.map((bclass) => {
+      if(bclass.name === tableName) {
+        return {name: newtableName, data: [...bclass.data]}
+      } else {
+        return bclass
+      }
+    })
+
+    this.setState({...this.state, bclasses: newbclasses})
   }
 }
 

@@ -111,33 +111,33 @@ export class AutocompleteCoursesTextField extends React.Component<CourseTextFiel
   }
 }
 
-// export function AutocompleteCoursesTextBox(props: {label: string, list: CourseTextBox[]}) {
-//   const { label, list } = props
-//   return (
-//     <Autocomplete
-//       style={{ width: 300, display: "inline-block"}}
-//       options={list}
-//       autoHighlight
-//       getOptionLabel={(option) => `${option.abbreviation} ${option.course_number}`}
-//       renderOption={(option) => (
-//         <React.Fragment>
-//           {option.abbreviation} {option.course_number}
-//         </React.Fragment>
-//       )}
-//       renderInput={(params) => (
-//         <TextField
-//           {...params}
-//           label={label}
-//           variant="outlined"
-//           inputProps={{
-//             ...params.inputProps,
-//             autoComplete: "new-password" // disable autocomplete and autofill
-//           }}
-//         />
-//       )}
-//     />
-//   );
-// }
+export function AutocompleteCoursesTextBox(props: {label: string, list: CourseTextBox[]}) {
+  const { label, list } = props
+  return (
+    <Autocomplete
+      style={{ width: 300, display: "inline-block"}}
+      options={list}
+      autoHighlight
+      getOptionLabel={(option) => `${option.abbreviation} ${option.course_number}`}
+      renderOption={(option) => (
+        <React.Fragment>
+          {option.abbreviation} {option.course_number}
+        </React.Fragment>
+      )}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          label={label}
+          variant="outlined"
+          inputProps={{
+            ...params.inputProps,
+            autoComplete: "new-password" // disable autocomplete and autofill
+          }}
+        />
+      )}
+    />
+  );
+}
 
 
 // export function AutocompleteListTextBox(props: {label: string, list: ListTextBox[]}) {
