@@ -20,10 +20,24 @@
   margin-bottom: 40px;
 }
 
+.titlediv {
+  display: block
+}
+
 .title {
   display: inline;
   font-size: larger;
   font-family: OpenSans-Regular;
+}
+.titleEditIcon {
+  width: 30px;
+  height: 30px;
+  visibility: hidden;
+}
+
+.titlediv:hover .titleEditIcon{
+  margin-left: 10px;
+  visibility: visible;
 }
 
 .content-table {
@@ -118,3 +132,4 @@
   background-color: #fafafa;
   cursor: pointer;
 }
+
