@@ -162,6 +162,16 @@ class App extends React.Component {
 
     this.setState({...this.state, bclasses: newbclasses})
   }
+
+  componentDidMount() {
+    this.getdata()
+  }
+  async getdata() {
+    let x = new bclasses("spring", "2021","example", [{courseid: 2337, coursename: "example"}])
+    Promise.all(await x.main()).then(()=> {
+        console.log(x)
+    })
+  }
 }
 
 export default App

@@ -140,7 +140,6 @@ class Table extends React.Component<TableProps> {
     handleTitleEditonChange = (e: any) => {
         this.props.handleTableName(this.props.tableName, e.target.value)
     }
-
 }
 
 export default Table
