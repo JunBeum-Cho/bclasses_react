@@ -117,7 +117,7 @@ class Table extends React.Component<TableProps> {
         } else {
             return (
                 <tr>
-                    <td colSpan={7}>
+                    <td colSpan={8}>
                         <div 
                             className="additem_btn" 
                             onClick={() => {this.setState({editing: !this.state.editing})}}>+
