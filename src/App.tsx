@@ -29,11 +29,25 @@ class App extends React.Component {
     }]
   }
 
+  // "proxy": "https://www.berkeleytime.com",
   componentDidMount() {
-    console.log("!@",loginCheck())
-    // Axios.get('/login/auth')
+    // console.log("!@",loginCheck())
+    // Axios.get('/api/enrollment/aggregate/2327/spring/2021/')
     // .then( response => { console.log("123123", response); } ) // SUCCESS
     // .catch( error => { console.log("123123", error); } ); // ERROR
+    // Axios.get('/api/enrollment/aggregate/2327/spring/2021/')
+    // .then( response => { console.log("123123", response); } ) // SUCCESS
+    // .catch( error => { console.log("123123", error); } ); // ERROR
+
+    Axios.get('/login/auth')
+    .then( response => { console.log("123123", response); } ) // SUCCESS
+    .catch( error => { console.log("123123", error); } ); // ERROR
+    Axios.get('/')
+    .then( response => { console.log("123123", response); } ) // SUCCESS
+    .catch( error => { console.log("123123", error); } ); // ERROR
+    Axios.post("/login", {id: "junbeumc", password: "junbeumcpass"})
+    .then( response => { console.log("123123", response); } ) // SUCCESS
+    .catch( error => { console.log("123123", error); } ); // ERROR
   }
 
   render() {
