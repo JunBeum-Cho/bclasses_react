@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import Login from "./Login";
+import Authcheck from "./Authcheck"
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
@@ -11,6 +12,8 @@ ReactDOM.render(
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={App} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/login/authcheck" component={Authcheck} />
       </Switch>
     </BrowserRouter>
   </React.StrictMode>,

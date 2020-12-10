@@ -3,12 +3,14 @@ import Table from './Table'
 import React from 'react';
 import bclasses from './bclasses';
 import { addItem, login, loginCheck } from "./api"
-import { Route } from "react-router-dom"
+import { Route, Redirect } from "react-router-dom"
 import Axios from 'axios'
+import cookies from "js-cookie"
+import { TramRounded } from '@material-ui/icons';
 
 class App extends React.Component {
   state = {
-    auth: "login unchecked",
+    auth: true,
     number: 0,
     bclasses: [{
       name: "Example List",
@@ -30,20 +32,29 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    Axios.get('/login/auth')
-    .then( response => { console.log("123123", response); } ) // SUCCESS
-    .catch( error => { console.log("123123", error); } ); // ERROR
+  //   Axios.get('/login/auth')
+  //   .then( response => { console.log("123123", response); } ) // SUCCESS
+  //   .catch( error => { console.log("123123", error); } ); // ERROR
 
-    Axios.post("/login", {id: "junbeumc", password: "junbeumcpass"})
-    .then( response => { console.log("123123", response); } ) // SUCCESS
-    .catch( error => { console.log("123123", error); } ); // ERROR
+    // Axios.post("/login", {id: "junbeumc", password: "junbeumcpass"})
+    // .then( response => { console.log("123123", response); } ) // SUCCESS
+    // .catch( error => { console.log("123123", error); } ); // ERROR
+    if(!cookies.get("authtoken")) {
+      this.setState({auth:false})
+    }
+    console.log("123123",cookies.get("authtoken"))
+    console.log(this.state)
   }
 
   render() {
+    console.log(this.state)
     return (
-        <Route>
+      !this.state.auth
+      ? <Redirect to="/login"/>
+      : <Route>
           <div id="cluster">
               <h1>hi{this.state.auth}</h1>
+              <button onClick={this.handleLogout}>logout button</button>
               {this.renderbclasses()}
               {this.renderaddlist()}
           </div>
@@ -97,6 +108,11 @@ class App extends React.Component {
     return (
         <button className="addlist_btn" onClick={this.addlist_onClick} >+ Add List</button>
     )
+  }
+
+  handleLogout = () => {
+    cookies.remove("authtoken")
+    this.setState({auth: false})
   }
 
   handleRemoveData = (tableName, courseid) => {
