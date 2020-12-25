@@ -1,9 +1,9 @@
-node_modules/
+**/node_modules
 .vscode
 .idea
 yarn-error.log
 .DS_Store
-dist/
-package-lock.json
-yarn.lock
-.eslintcache
+**/dist
+**/package-lock.json
+**/yarn.lock
+**/.eslintcache

@@ -6,8 +6,11 @@ import Login from "./Login";
 import Authcheck from "./Authcheck"
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+// import store from './data_store';
+import {Provider} from 'react-redux'
 
 ReactDOM.render(
+  <Provider store={store}>
   <React.StrictMode>
     <BrowserRouter>
       <Switch>
@@ -16,7 +19,8 @@ ReactDOM.render(
         <Route exact path="/login/authcheck" component={Authcheck} />
       </Switch>
     </BrowserRouter>
-  </React.StrictMode>,
+  </React.StrictMode>
+  </Provider>,
   document.getElementById("root")
 );
 
